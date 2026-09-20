@@ -177,3 +177,49 @@ def get_doctor_appointments(
             for appointment in appointments
         ]
     }
+# Update Appointment Status
+
+class AppointmentStatusRequest(BaseModel):
+    status: str
+
+
+@router.put("/{appointment_id}/status")
+def update_appointment_status(
+    appointment_id: int,
+    status_data: AppointmentStatusRequest,
+    db: Session = Depends(get_db)
+):
+    appointment = db.query(Appointment).filter(
+        Appointment.appointment_id == appointment_id
+    ).first()
+
+    if not appointment:
+        raise HTTPException(
+            status_code=404,
+            detail="Appointment not found"
+        )
+
+    allowed_statuses = [
+        "Pending",
+        "Confirmed",
+        "Rejected",
+        "Completed",
+        "Cancelled"
+    ]
+
+    if status_data.status not in allowed_statuses:
+        raise HTTPException(
+            status_code=400,
+            detail="Invalid appointment status"
+        )
+
+    appointment.status = status_data.status
+
+    db.commit()
+    db.refresh(appointment)
+
+    return {
+        "message": "Appointment status updated successfully",
+        "appointment_id": appointment.appointment_id,
+        "status": appointment.status
+    }
