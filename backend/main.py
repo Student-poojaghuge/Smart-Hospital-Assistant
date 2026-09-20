@@ -5,6 +5,7 @@ from backend.routes import health_assessment
 from backend.routes import doctors
 from backend.routes import appointments
 from backend.routes import medical_records
+from backend.routes import medicines
 app = FastAPI(
     title="Smart Hospital Assistant API",
     version="1.0.0"
@@ -16,6 +17,8 @@ app.include_router(health_assessment.router)
 app.include_router(doctors.router)
 app.include_router(appointments.router)
 app.include_router(medical_records.router)
+app.include_router(medicines.router)
+
 @app.get("/")
 def home():
     return {
