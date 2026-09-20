@@ -140,3 +140,40 @@ def get_patient_appointments(
             for appointment in appointments
         ]
     }
+# Doctor Appointment Management
+
+@router.get("/doctor/{doctor_id}")
+def get_doctor_appointments(
+    doctor_id: int,
+    db: Session = Depends(get_db)
+):
+    doctor = db.query(Doctor).filter(
+        Doctor.doctor_id == doctor_id
+    ).first()
+
+    if not doctor:
+        raise HTTPException(
+            status_code=404,
+            detail="Doctor not found"
+        )
+
+    appointments = db.query(Appointment).filter(
+        Appointment.doctor_id == doctor_id
+    ).all()
+
+    return {
+        "doctor_id": doctor_id,
+        "total_appointments": len(appointments),
+        "appointments": [
+            {
+                "appointment_id": appointment.appointment_id,
+                "patient_id": appointment.patient_id,
+                "appointment_date": appointment.appointment_date,
+                "appointment_time": appointment.appointment_time,
+                "reason": appointment.reason,
+                "status": appointment.status,
+                "notes": appointment.notes
+            }
+            for appointment in appointments
+        ]
+    }
