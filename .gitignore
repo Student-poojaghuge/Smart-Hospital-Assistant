@@ -25,6 +25,8 @@ models/*.pkl
 models/*.joblib
 **/saved_models/*.pkl
 **/saved_models/*.joblib
+data/
+database/*.pkl
 
 # Processed datasets
 **/processed_data/
