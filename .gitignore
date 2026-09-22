@@ -1,18 +1,40 @@
+# Virtual environments
 venv/
+.venv/
+
+# Python
 __pycache__/
 *.pyc
 
+# Secrets
 .env
 
+# IDE
 .vscode/
 
-data/raw/
-data/processed/
-
-models/*.pkl
-models/*.joblib
-
+# Databases
 *.db
+*.sqlite
 *.sqlite3
 
-.streamlit/secrets.toml
+# Raw datasets
+data/raw/
+
+# ML models
+models/*.pkl
+models/*.joblib
+**/saved_models/*.pkl
+**/saved_models/*.joblib
+
+# Processed datasets
+**/processed_data/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
