@@ -10,9 +10,10 @@ router = APIRouter(
 )
 
 # Model path
-MODEL_PATH = Path(
-    r"C:\Users\hp\OneDrive\Desktop\smart_hospital_assistant\models\heart_disease_model.pkl"
-)
+
+# Model path
+BASE_DIR = Path(__file__).resolve().parents[2]
+MODEL_PATH = BASE_DIR / "models" / "heart_disease_model.pkl"
 
 # Load model
 try:

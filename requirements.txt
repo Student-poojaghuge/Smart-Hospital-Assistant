@@ -16,3 +16,8 @@ joblib
 shap
 requests
 pypdf
+faiss-cpu
+sentence-transformers
+torch
+transformers
+streamlit-mic-recorder

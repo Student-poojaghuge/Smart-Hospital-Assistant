@@ -90,6 +90,76 @@ def get_all_doctors(
             for doctor in doctors
         ]
     }
+@router.get("/search/")
+def search_doctors(
+    hospital_id: int = None,
+    specialization: str = None,
+    location: str = None,
+    db: Session = Depends(get_db)
+):
+    query = db.query(Doctor)
+
+    if hospital_id:
+        query = query.filter(Doctor.hospital_id == hospital_id)
+
+    if specialization:
+        query = query.filter(
+            Doctor.specialization.ilike(f"%{specialization}%")
+        )
+
+    if location:
+        query = query.filter(
+            Doctor.hospital_name.ilike(f"%{location}%")
+        )
+
+    doctors = query.all()
+
+    return {
+        "message": "Doctor search completed",
+        "total_doctors": len(doctors),
+        "doctors": [
+            {
+                "doctor_id": doctor.doctor_id,
+                "user_id": doctor.user_id,
+                "specialization": doctor.specialization,
+                "qualification": doctor.qualification,
+                "experience": doctor.experience,
+                "phone": doctor.phone,
+                "hospital_id": doctor.hospital_id,
+                "hospital_name": doctor.hospital_name
+            }
+            for doctor in doctors
+        ]
+    }
+@router.get("/hospital/{hospital_id}")
+def get_doctors_by_hospital(
+    hospital_id: int,
+    db: Session = Depends(get_db)
+):
+    doctors = (
+        db.query(Doctor)
+        .filter(Doctor.hospital_id == hospital_id)
+        .all()
+    )
+
+    return {
+        "message": "Doctors fetched successfully",
+        "hospital_id": hospital_id,
+        "total_doctors": len(doctors),
+        "doctors": [
+            {
+                "doctor_id": doctor.doctor_id,
+                "user_id": doctor.user_id,
+                "specialization": doctor.specialization,
+                "qualification": doctor.qualification,
+                "experience": doctor.experience,
+                "phone": doctor.phone,
+                "hospital_id": doctor.hospital_id,
+                "hospital_name": doctor.hospital_name
+            }
+            for doctor in doctors
+        ]
+    }
 @router.get("/{doctor_id}")
 def get_doctor_details(
     doctor_id: int,

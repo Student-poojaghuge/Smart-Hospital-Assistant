@@ -7,7 +7,9 @@ from database.models import (
     MedicalRecord,
     EmergencyAssessment,
     Prediction,
-    Medicine
+    Medicine,
+    Hospital,
+    ChatHistory
 )
 
 Base.metadata.create_all(bind=engine)

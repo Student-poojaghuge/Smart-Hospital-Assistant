@@ -21,8 +21,15 @@ __pycache__/
 data/raw/
 
 # ML models
+# Ignore other model files, but allow required deployment models
 models/*.pkl
 models/*.joblib
+
+!models/diabetes_model.pkl
+!models/diabetes_scaler.pkl
+!models/disease_prediction_features.pkl
+!models/disease_prediction_model.pkl
+!models/heart_disease_model.pkl
 **/saved_models/*.pkl
 **/saved_models/*.joblib
 data/

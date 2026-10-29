@@ -10,13 +10,12 @@ router = APIRouter(
 )
 
 # Model paths
-MODEL_PATH = Path(
-    r"C:\Users\hp\OneDrive\Desktop\smart_hospital_assistant\models\diabetes_model.pkl"
-)
 
-SCALER_PATH = Path(
-    r"C:\Users\hp\OneDrive\Desktop\smart_hospital_assistant\models\diabetes_scaler.pkl"
-)
+# Model paths
+BASE_DIR = Path(__file__).resolve().parents[2]
+MODEL_PATH = BASE_DIR / "models" / "diabetes_model.pkl"
+SCALER_PATH = BASE_DIR / "models" / "diabetes_scaler.pkl"
+
 
 # Load model and scaler
 try:

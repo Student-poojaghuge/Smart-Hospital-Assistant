@@ -116,7 +116,6 @@ def search_medicine(
         ]
     }
 
-
 # View Medicine Details
 @router.get("/{medicine_id}")
 def get_medicine_details(
@@ -142,5 +141,10 @@ def get_medicine_details(
         "precautions": medicine.precautions,
         "side_effects": medicine.side_effects,
         "prescription_required": medicine.prescription_required,
-        "doctor_verified": medicine.doctor_verified
+        "doctor_verified": medicine.doctor_verified,
+        "notice": (
+            "This information is for educational purposes only. "
+            "Consult a qualified healthcare professional before "
+            "using or changing any medicine."
+        )
     }

@@ -38,6 +38,7 @@ class Doctor(Base):
 
     doctor_id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, nullable=False)
+    hospital_id = Column(Integer)
     specialization = Column(String(100))
     qualification = Column(String(150))
     experience = Column(Integer)
@@ -132,3 +133,34 @@ class Medicine(Base):
     side_effects = Column(Text)
     prescription_required = Column(String(10), default="Yes")
     doctor_verified = Column(String(10), default="No")
+
+
+# =========================
+# HOSPITAL
+# =========================
+class Hospital(Base):
+    __tablename__ = "hospitals"
+
+    hospital_id = Column(Integer, primary_key=True, index=True)
+    hospital_name = Column(String(150), nullable=False)
+    location = Column(String(100))
+    address = Column(Text)
+    phone = Column(String(20))
+    hospital_type = Column(String(100))
+    specialization = Column(String(150))
+    emergency_available = Column(String(10))
+    consultation_available = Column(String(10))
+
+
+# =========================
+# CHAT HISTORY
+# =========================
+class ChatHistory(Base):
+    __tablename__ = "chat_history"
+
+    chat_id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, nullable=False)
+    query = Column(Text, nullable=False)
+    query_type = Column(String(30), nullable=False)
+    response = Column(Text, nullable=False)
+    created_at = Column(String(30), nullable=False)

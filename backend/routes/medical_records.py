@@ -137,3 +137,38 @@ def get_single_medical_record(
         "existing_conditions": record.existing_conditions,
         "doctor_notes": record.doctor_notes
     }
+
+# =====================================================
+# UPDATE DOCTOR NOTES ON AN EXISTING MEDICAL RECORD
+# =====================================================
+
+class DoctorNotesUpdate(BaseModel):
+    doctor_notes: str
+
+
+@router.put("/{record_id}/notes")
+def update_doctor_notes(
+    record_id: int,
+    notes_data: DoctorNotesUpdate,
+    db: Session = Depends(get_db)
+):
+    record = db.query(MedicalRecord).filter(
+        MedicalRecord.record_id == record_id
+    ).first()
+
+    if not record:
+        raise HTTPException(
+            status_code=404,
+            detail="Medical record not found"
+        )
+
+    record.doctor_notes = notes_data.doctor_notes
+
+    db.commit()
+    db.refresh(record)
+
+    return {
+        "message": "Doctor notes updated successfully",
+        "record_id": record.record_id,
+        "doctor_notes": record.doctor_notes
+    }
